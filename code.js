@@ -23,7 +23,8 @@ void main(void)
     vec2 uv = coordinate.xy/resolution.xy;
 
     vec4 pixel = texture2D(tex0, uv).xyzw;
-    gl_FragColor = pixel;
+
+    gl_FragColor = vec4(pixel.x * pixel.w, pixel.y * pixel.w, pixel.z * pixel.w, pixel.w);
 }
 `;
 
@@ -42,7 +43,7 @@ function main() {
     /** @type {WebGLRenderingContext} */
     const gl = canvas.getContext(`webgl`, {
         alpha: true,
-        premultipliedAlpha: false,
+        premultipliedAlpha: true,
     });
     const texture = createTexture(gl, canvasWithText(size, size));
     /** @type {WebGLProgram} */
